@@ -3,7 +3,7 @@ import pool from "../db.js";
 //Get All
 export const getArtWorks = async (req, res) => {
   try {
-    const artWorks = pool.query(`
+    const artWorks = await pool.query(`
       SELECT
         w.id,
         w.name,
@@ -30,7 +30,7 @@ export const getArtWorks = async (req, res) => {
       GROUP BY w.id;
     `);
 
-    res.json((await artWorks).rows);
+    res.status(200).json({ success: true, data: artWorks.rows });
 
   } catch (err) {
     console.log(err.message);
@@ -70,7 +70,7 @@ export const getartWorkById = async (req, res) => {
       GROUP BY w.id;
     `, [id]);
 
-    res.json(artWork.rows[0]);
+    res.status(200).json({ success: true, data: artWork.rows[0] });
 
   } catch (err) {
     console.log(err);

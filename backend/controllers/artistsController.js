@@ -28,7 +28,7 @@ export const getArtists = async (req, res) => {
       GROUP BY a.id
     `);
 
-    res.json(artists.rows);
+    res.status(200).json({ success: true, data: artists.rows });
   } catch (err) {
     console.log(err.message);
   }
@@ -66,7 +66,7 @@ export const getArtistById = async (req, res) => {
       GROUP BY a.id
     `, [id]);
 
-    res.json(artist.rows[0]);
+    res.status(200).json({ success: true, data: artist.rows[0] });
 
   } catch (err) {
     console.log(err);

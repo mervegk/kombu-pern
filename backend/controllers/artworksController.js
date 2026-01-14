@@ -121,16 +121,30 @@ export const addArtWork = async (req, res) => {
 export const updateArtWork = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, work_date, work_year_start, work_year_end, picture } = req.body;
+    const {
+      name,
+      description,
+      work_date,
+      work_year_start,
+      work_year_end,
+      picture } = req.body;
 
     const editArtWork = await pool.query(`
       UPDATE works_of_arts 
       SET 
       name = $1, description = $2, work_date = $3, work_year_start = $4, work_year_end = $5, picture = $6
       WHERE id = $7
-    `, [name, description, work_date, work_year_start, work_year_end, picture, id]);
+    `, [
+      name,
+      description,
+      work_date,
+      work_year_start,
+      work_year_end,
+      picture,
+      id
+    ]);
 
-    res.status(200).json({ success: true, message: 'Art work updated successfully', data: editArtWork.rows })
+    res.status(200).json({ success: true, message: 'Art work was updated successfully' })
 
   } catch (err) {
     console.error(err.error);
